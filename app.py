@@ -25,18 +25,26 @@ def home_page():
 @app.route('/questions/<int:qid>', methods=['POST', 'GET'])
 def questions(qid):
     """render questions"""
-    if request.method== 'GET':
-        question = satisfaction_survey.questions[qid]
-        return render_template('questions.html', question = question, qid=qid)
-    elif request.method == 'POST':
-        answer = request.form['answer']
-        responses.append(answer)
-        global_id[0] += 1
-        if global_id[0] > 3:
-            return redirect('/answers')
-        else:
-            print(responses)
-            return redirect(f'/questions/{global_id[0]}')
+    for num in global_id:
+        val = int(num)
+        if val == qid:
+            if request.method== 'GET':
+                question = satisfaction_survey.questions[qid]
+                return render_template('questions.html', question = question, qid=qid)
+            elif request.method == 'POST':
+                answer = request.form['answer']
+                responses.append(answer)
+                global_id[0] += 1
+                if global_id[0] > 3:
+                    global_id[0] = 0
+                    return redirect('/answers')
+                else:
+                    print(responses)
+                    return redirect(f'/questions/{global_id[0]}')
+        elif val != qid:
+            flash('You must answer the questions in order!')
+            return redirect(f'/questions/{val}')
+
 
 
 @app.route('/thank-you')

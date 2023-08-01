@@ -30,7 +30,7 @@ satisfaction_survey = Survey(
         Question("Have you shopped here before?"),
         Question("Did someone else shop with you today?"),
         Question("On average, how much do you spend a month on frisbees?",
-                 ["zaasssssssss", "$10,000 or more"]),
+                 ["Less then $10,000", "$10,000 or more"]),
         Question("Are you likely to shop here again?"),
     ])
 
